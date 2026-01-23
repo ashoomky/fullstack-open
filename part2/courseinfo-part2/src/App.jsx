@@ -1,5 +1,5 @@
-const Header = ({courses}) => {
-  return(<h2>{courses.name}</h2>)
+const Header = ({course}) => {
+  return(<h2>{course.name}</h2>)
 }
 
 const Part = ({part}) => {
@@ -8,29 +8,35 @@ const Part = ({part}) => {
   )
 }
 
-const Content = ({courses}) => {
+const Total = ({parts}) => {
+  let total = parts.reduce((sum, part) => sum + part.exercises, 0)
+  return (
+    <b>total of {total} exercises </b>
+  )
+}
+
+// show content of one course
+const Content = ({course}) => {
   return (
     <div>
-      {courses.map((course => {
-        return (
-          <div key={course.id}>
-            <Header courses = {course}></Header>
-            {course.parts.map((part => (
-              <Part key = {part.id} part = {part}/>
-            )))}
-            <Total parts={course.parts}/>
-          </div>
-        )
-      }))}
+      <Header course = {course}/>
+      {course.parts.map((part) => 
+        <Part key = {part.id} part = {part}/>
+      )}
+      <Total parts={course.parts}/>
     </div>
   )
 }
 
-const Total = ({parts}) => {
-  let total = parts.reduce((sum, part) => sum + part.exercises, 0)
-  
+const Course = ({courses}) => {
   return (
-    <b>total of {total} exercises </b>
+    <div>
+      {courses.map((course) => {
+        return (
+          <Content key={course.id} course = {course}/>
+        )
+      })}
+    </div>
   )
 }
 
@@ -83,7 +89,7 @@ const App = () => {
   return (
     <div>
       <h1>Web development curriculum</h1>
-      <Content courses={courses} />
+      <Course courses={courses} />
     </div>
   )
 }
