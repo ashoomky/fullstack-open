@@ -8,9 +8,16 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const addName = (event) => {
     event.preventDefault()
+
+    if (persons.some(person => person.name === newName)){
+      alert(`${newName} is already added to phonebook`)
+      return
+    }
+    
     const nameObject = {
       name: newName,
     }
+
     setPersons(persons.concat(nameObject)) // adding the new name to the persons array
     setNewName('') // resetting the text box to be nothing again
   }
@@ -37,8 +44,6 @@ const App = () => {
         {persons.map((person, i) =>
           <div key = {i}>{person.name}</div>
         )}
-
-      
     </div>
   )
 }
