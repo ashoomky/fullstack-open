@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import axios from 'axios'
+import personService from './services/persons'
 
 const PersonForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -19,11 +20,13 @@ const PersonForm = ({persons, setPersons}) => {
         name: newName,
         number: newNumber,
         }
-        axios
-        .post('http://localhost:3001/persons', nameObject)
-        setPersons(persons.concat(nameObject)) // adding the new name to the persons array
-        setNewName('') // resetting the text box to be nothing again
-        setNewNumber('') // resetting the number box
+        personService
+        .create(nameObject)
+        .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson)) //create returns singular new object
+            setNewName('')
+            setNewNumber('')
+        })
     }
     // ensuring the value entered in the input text box is set to be the name using the setname function
     const handlePersonChange = (event) => {
