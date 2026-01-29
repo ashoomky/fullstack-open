@@ -6,79 +6,14 @@
       "id": "1"
     },
     {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": "2"
-    },
-    {
       "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": "3"
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": "4"
-    },
-    {
-      "id": "9069",
-      "name": "asdsadsa",
-      "number": "234232"
-    },
-    {
-      "id": "fd98",
-      "name": "sdfsf",
-      "number": "2342342"
-    },
-    {
-      "id": "f993",
-      "name": "dfsfds",
-      "number": "234234"
-    },
-    {
-      "id": "abe5",
-      "name": "frgdg",
-      "number": "4535"
-    },
-    {
-      "id": "89bd",
-      "name": "ashlee",
-      "number": "19832029312"
-    },
-    {
-      "id": "14e4",
-      "name": "asjenhlee",
-      "number": "23432"
-    },
-    {
-      "id": "2f05",
-      "name": "hayley",
-      "number": "2390485203"
-    },
-    {
-      "id": "4ffb",
-      "name": "sdfsdsdfds",
-      "number": "2342432"
-    },
-    {
-      "id": "b8ac",
-      "name": "aaaaa",
-      "number": "11111"
-    },
-    {
-      "id": "6d5a",
-      "name": "ashahs",
-      "number": "1231"
-    },
-    {
-      "id": "a537",
-      "name": "sadasdas",
-      "number": "2343243"
-    },
-    {
-      "id": "5fce",
-      "name": "sdfs",
-      "number": "3234"
+      "id": 4,
+      "name": "sdf",
+      "number": "2342423"
     }
   ]
 }
