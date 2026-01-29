@@ -4,8 +4,9 @@ const Persons = ({persons, setPersons, filter}) => {
     const personsToShow = persons.filter(person => 
         person.name.toLowerCase().includes(filter.toLowerCase())
     )
-    const handleDelete = ({id, name}) => {
-
+    
+    
+    const handleDelete = (id, name) => {
         if (window.confirm(`Delete ${name}?`)){
             personService.remove(id)
         .then(() => {
@@ -17,15 +18,17 @@ const Persons = ({persons, setPersons, filter}) => {
             setPersons(previousPersons => previousPersons.filter(p => p.id !== id))
             // deletes the person from the ui since it is already deleted
         })
+
         } 
     }
-    personsToShow.map((person) => {console.log(person.id)})
+    console.log(persons)
+
 
     return (
         <div>
             {personsToShow.map((person, i) =>
                 <div key = {i}>{person.name} {person.number} 
-                    <button onClick={() => {handleDelete(person)}}>delete</button>
+                    <button onClick={() => {handleDelete(person.id, person.name)}}>delete</button>
                 </div>
             )}
         </div>

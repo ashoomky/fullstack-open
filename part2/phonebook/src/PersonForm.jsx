@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import axios from 'axios'
 import personService from './services/persons'
 
 const PersonForm = ({persons, setPersons}) => {
@@ -9,17 +8,32 @@ const PersonForm = ({persons, setPersons}) => {
   
     const addPerson = (event) => {
         event.preventDefault()
-
-        // checking if the name is already in phonebook
-        if (persons.some(person => person.name === newName)){
-        alert(`${newName} is already added to phonebook`)
-        return
+        const existingPerson = persons.find(person => person.name === newName)
+        if (existingPerson){
+            if (window.confirm(`${existingPerson.name} is already added to phonebook, replace the old number with new one?`)){
+                const updatedPerson = {...existingPerson, number: newNumber}
+                personService
+                .update(existingPerson.id, updatedPerson)
+                .then(returnedPerson => {
+                    setPersons(persons.map(person => 
+                       person.id !== existingPerson.id ? person : returnedPerson
+                    ))
+                    setNewName('')
+                    setNewNumber('')
+                })
+                .catch(error => {
+                    alert(`${existingPerson.name} has already been removed from server`)
+                    setPersons(persons.filter(p => p.id !== existingPerson.id))
+                })
+            }
+            return
         }
         
         const nameObject = {
         name: newName,
         number: newNumber,
         }
+        
         personService
         .create(nameObject)
         .then(returnedPerson => {
