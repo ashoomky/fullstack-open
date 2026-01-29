@@ -1,5 +1,6 @@
 const Persons = ({persons, filter}) => {
     // new array including filtered persons
+    console.log(persons)
     const personsToShow = persons.filter(person => 
         person.name.toLowerCase().includes(filter.toLowerCase())
     )

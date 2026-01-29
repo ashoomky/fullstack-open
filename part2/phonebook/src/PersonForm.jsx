@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import axios from 'axios'
 
 const PersonForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
@@ -18,7 +19,8 @@ const PersonForm = ({persons, setPersons}) => {
         name: newName,
         number: newNumber,
         }
-
+        axios
+        .post('http://localhost:3001/persons', nameObject)
         setPersons(persons.concat(nameObject)) // adding the new name to the persons array
         setNewName('') // resetting the text box to be nothing again
         setNewNumber('') // resetting the number box

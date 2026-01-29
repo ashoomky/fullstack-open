@@ -6,17 +6,14 @@ import Persons from './Persons'
 
 const App = () => {
   useEffect(() => {
-    console.log("effect")
     axios
     .get("http://localhost:3001/persons")
     .then(response => {
-      console.log("promise fulfilled")
       setPersons(response.data)
     })
   }, [])
   const [persons, setPersons] = useState([])
   const [filter, setFilter] = useState('')
-  console.log(filter)
 
  
   return (
