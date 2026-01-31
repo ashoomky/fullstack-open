@@ -49,10 +49,26 @@ const App = () => {
       <input value={value} onChange={handleChange}/>
       <div>
         {filter.length > 10 && <div>too many matches be more specific</div>}
-        {filter.length > 0 && filter.length<10 && 
+        {filter.length > 0 && filter.length<10 && filter.length !== 1 &&
         filter.map((country, i) => (
           <div key = {i}>{country.name.common}</div>
         ))}
+        {filter.length === 1 && filter.map((country, i) => (
+          <div>
+            <h2 key ={i}> {country.name.common} </h2>
+            Capital {country.capital} <br></br>
+            Area {country.area}
+            <h3>Languages</h3>
+            {/* converts it to from object to array type */}
+            <ul>
+              {Object.values(country.languages).map((language, i) => (
+                <li key={i}>{language}</li>
+              ))}
+            </ul>
+            <img src={country.flags.png} alt="flag" />
+           </div>
+        ))
+      }
       </div>
     </div>
   )
