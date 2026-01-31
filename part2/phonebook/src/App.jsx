@@ -13,17 +13,17 @@ const App = () => {
   }, [])
   const [persons, setPersons] = useState([])
   const [filter, setFilter] = useState('')
-  const [message, setMessage] = useState(null)
+  const [notification, setNotification] = useState(null)
  
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message}/>
+      <Notification notification={notification}/>
         <Filter filter = {filter} setFilter = {setFilter}/>
       <h2>add a new</h2>
-        <PersonForm persons ={persons} setPersons={setPersons} setMessage = {setMessage}/>
+        <PersonForm persons ={persons} setPersons={setPersons} setNotification = {setNotification}/>
       <h2>Numbers</h2>
-        <Persons persons={persons} setPersons={setPersons} filter={filter}/>
+        <Persons persons={persons} setPersons={setPersons} filter={filter} setNotification ={setNotification}/>
     </div>
   )
 }

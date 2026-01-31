@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import personService from './services/persons'
 
-const PersonForm = ({persons, setPersons, setMessage}) => {
+const PersonForm = ({persons, setPersons, setNotification}) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
@@ -18,11 +18,11 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
                     setPersons(persons.map(person => 
                        person.id !== existingPerson.id ? person : returnedPerson
                     ))
-                    setMessage(
-                        `${existingPerson.name}'s phone number has been updated.`
+                    setNotification(
+                        {text: `${existingPerson.name}'s phone number has been updated.`, type: 'success'}
                     )
                     setTimeout(()=>{
-                        setMessage(null)
+                        setNotification(null)
                     }, 3000)
                     setNewName('')
                     setNewNumber('')
@@ -44,11 +44,11 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
         .create(nameObject)
         .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson)) //create returns singular new object
-            setMessage(
-                `${returnedPerson.name} has been added.`
+            setNotification(
+                {text: `${returnedPerson.name} has been added.`, type: 'success'}
             )
             setTimeout(()=>{
-                setMessage(null)
+                setNotification(null)
             }, 3000)
             setNewName('')
             setNewNumber('')

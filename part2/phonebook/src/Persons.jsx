@@ -1,5 +1,5 @@
 import personService from './services/persons'
-const Persons = ({persons, setPersons, filter}) => {
+const Persons = ({persons, setPersons, filter, setNotification}) => {
     // new array including filtered persons
     const personsToShow = persons.filter(person => 
         person.name.toLowerCase().includes(filter.toLowerCase())
@@ -11,17 +11,28 @@ const Persons = ({persons, setPersons, filter}) => {
             personService.remove(id)
         .then(() => {
             //accessing the previous person array using setPersons to remove the newly deleted one.
+            setNotification(
+                {text: `${name} has been removed from the server`, type: 'success'}
+            )
+            setTimeout(() => {
+                setNotification(null)
+            }, 3000)
             setPersons(previousPersons => previousPersons.filter(p => p.id !== id))
         })
-        .catch(error => {
-            alert(`${name} was already removed from the server`)
+        .catch(() => {
+            // alert(`${name} was already removed from the server`)
+            setNotification(
+                {text: `${name} was already removed from the server`, type: 'error'}
+            )
+            setTimeout(() => {
+                setNotification(null)
+            }, 3000)
             setPersons(previousPersons => previousPersons.filter(p => p.id !== id))
-            // deletes the person from the ui since it is already deleted
+            // removes the person from the ui since it is already deleted using filter
         })
 
         } 
     }
-    console.log(persons)
 
 
     return (
