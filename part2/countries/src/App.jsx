@@ -7,6 +7,7 @@ const App = () => {
   // stores the countries to render
   const [countryData, setCountryData] = useState([])
   const [filter, setFilter] = useState([])
+  const [countryToShow, setCountryToShow] = useState(null)
 
   // fetching all countries
   useEffect( () => {
@@ -43,7 +44,8 @@ const App = () => {
   const handleChange = (event) => {
     setValue(event.target.value)
   }
-  
+
+
   return (
     <div>find countries
       <input value={value} onChange={handleChange}/>
@@ -51,11 +53,28 @@ const App = () => {
         {filter.length > 10 && <div>too many matches be more specific</div>}
         {filter.length > 0 && filter.length<10 && filter.length !== 1 &&
         filter.map((country, i) => (
-          <div key = {i}>{country.name.common}</div>
+          <div key = {i}>{country.name.common}<button type="button" onClick={() =>setCountryToShow(country)}>show</button>
+            {/* checking to see which country we want to display this time */}
+            {country.name.common === countryToShow?.name.common && (
+              <div>
+                <h2 key ={i}> {country.name.common}</h2>
+                Capital {country.capital} <br></br>
+                Area {country.area}
+                <h3>Languages</h3>
+                {/* converts it to from object to array type */}
+                <ul>
+                  {Object.values(country.languages).map((language, i) => (
+                    <li key={i}>{language}</li>
+                  ))}
+                </ul>
+                <img src={country.flags.png} alt="flag" />
+              </div>
+            )}
+          </div>
         ))}
         {filter.length === 1 && filter.map((country, i) => (
           <div>
-            <h2 key ={i}> {country.name.common} </h2>
+            <h2 key ={i}> {country.name.common}</h2>
             Capital {country.capital} <br></br>
             Area {country.area}
             <h3>Languages</h3>
@@ -66,7 +85,7 @@ const App = () => {
               ))}
             </ul>
             <img src={country.flags.png} alt="flag" />
-           </div>
+          </div>
         ))
       }
       </div>
