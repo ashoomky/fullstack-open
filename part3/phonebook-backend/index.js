@@ -55,9 +55,14 @@ app.use(express.json()) // to access request body data
 
 app.post('/api/persons', (request, response) => {
     const entry = request.body
-    if (!entry.name || !entry.number){
+    if (!entry.name || !entry.number) {
         return response.status(400).json({
             error: 'content missing'
+        })
+    }
+    if (phonebook.some(p => p.name === entry.name)){
+        return response.status(400).json({
+            error: 'name must be unique'
         })
     }
     entry.id = String(Math.floor(Math.random() * 100000000))
