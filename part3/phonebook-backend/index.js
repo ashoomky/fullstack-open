@@ -51,6 +51,20 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
+app.use(express.json()) // to access request body data
+
+app.post('/api/persons', (request, response) => {
+    const entry = request.body
+    if (!entry.name || !entry.number){
+        return response.status(400).json({
+            error: 'content missing'
+        })
+    }
+    entry.id = String(Math.floor(Math.random() * 100000000))
+    phonebook = phonebook.concat(entry)
+    response.json(entry)
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`server running on port ${PORT}`)
