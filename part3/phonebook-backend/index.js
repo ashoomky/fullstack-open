@@ -1,8 +1,16 @@
 const express = require('express')
-const morgan = require('morgan');
+const morgan = require('morgan')
 const app = express()
 
-app.use(morgan('tiny'));
+app.use(express.json()) // to access request body data
+
+morgan.token('body', (request) => {
+    return request.method === 'POST' ? JSON.stringify(request.body) : '';
+})
+
+app.use(morgan(
+    ':method :url :status :res[content-length] - :response-time ms :body'
+));
 
 let phonebook = [
     { 
@@ -54,7 +62,6 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
-app.use(express.json()) // to access request body data
 
 app.post('/api/persons', (request, response) => {
     const entry = request.body
