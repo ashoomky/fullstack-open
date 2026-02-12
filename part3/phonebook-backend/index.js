@@ -6,6 +6,8 @@ const cors = require("cors")
 app.use(cors()) // to allow cross-origin requests
 app.use(express.json()) // to access request body data
 
+
+
 morgan.token('body', (request) => {
     return request.method === 'POST' ? JSON.stringify(request.body) : '';
 })
@@ -82,8 +84,7 @@ app.post('/api/persons', (request, response) => {
     response.json(entry)
 })
 
-const PORT = 3001
-app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`)
-})
+const PORT = process.env.PORT || 3001
+app.listen(PORT)
+
 
