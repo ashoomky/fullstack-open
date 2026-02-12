@@ -6,7 +6,7 @@ const cors = require("cors")
 app.use(cors()) // to allow cross-origin requests
 app.use(express.json()) // to access request body data
 
-
+app.use(express.static('dist'))
 
 morgan.token('body', (request) => {
     return request.method === 'POST' ? JSON.stringify(request.body) : '';
