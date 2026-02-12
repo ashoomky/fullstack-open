@@ -1,7 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
+const cors = require("cors")
 
+app.use(cors()) // to allow cross-origin requests
 app.use(express.json()) // to access request body data
 
 morgan.token('body', (request) => {
