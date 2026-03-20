@@ -2,7 +2,7 @@ import personService from './services/persons'
 const Persons = ({ persons, setPersons, filter, setNotification }) => {
     // new array including filtered persons
     const personsToShow = persons.filter(person =>
-        person.content && person.content.toLowerCase().includes(filter.toLowerCase())
+        person.name && person.name.toLowerCase().includes(filter.toLowerCase())
     )
 
     const handleDelete = (id, name) => {
@@ -18,16 +18,17 @@ const Persons = ({ persons, setPersons, filter, setNotification }) => {
                     }, 3000)
                     setPersons(previousPersons => previousPersons.filter(p => p.id !== id))
                 })
-                .catch(() => {
-                    // alert(`${name} was already removed from the server`)
-                    setNotification(
-                        { text: `${name} was already removed from the server`, type: 'error' }
-                    )
+                .catch(err => {
+                    console.error(err)
+
+                    setNotification({
+                        text: `Failed to delete ${name}`,
+                        type: 'error'
+                    })
+
                     setTimeout(() => {
                         setNotification(null)
                     }, 3000)
-                    setPersons(previousPersons => previousPersons.filter(p => p.id !== id))
-                    // removes the person from the ui since it is already deleted using filter
                 })
 
         }
@@ -37,7 +38,7 @@ const Persons = ({ persons, setPersons, filter, setNotification }) => {
     return (
         <div>
             {personsToShow.map((person, i) =>
-                <div key={i}>{person.content} {person.number}
+                <div key={i}>{person.name} {person.number}
                     <button onClick={() => { handleDelete(person.id, person.name) }}>delete</button>
                 </div>
             )}

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 const phonebookSchema = new mongoose.Schema({
-  content: String,
+  name: String,
+  number: String,
   important: Boolean,
 })
 
